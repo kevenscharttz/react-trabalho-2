@@ -19,7 +19,7 @@ function EventosForm(){
     const url_api_eventos = "http://localhost:8080/api/eventos"
 
   
-    function handleSubmitIdGet(e){
+    function handleSubmitGet(e){
         e.preventDefault();
 
         fetch("http://localhost:8080/api/eventos/" + PesquisaGet)
@@ -32,10 +32,10 @@ function EventosForm(){
                 alert("Erro ao buscar eventos: " + err);
             });
 
-        alert("Id pesquisado = " + PesquisaGet)
+        alert("Pesquisa geral feita" + PesquisaGet)
     }
 
-    function handleSubmitNameGet(e){
+    function handleSubmitIdGet(e){
         e.preventDefault();
 
         fetch("http://localhost:8080/api/eventos/eventosId/" + IdPesquisaGet)
@@ -48,10 +48,10 @@ function EventosForm(){
                 alert("Erro ao buscar usuário: " + err);
             });
 
-        alert("Nome pesquisado = " + IdPesquisaGet)
+        alert("Id do vento pesquisado = " + IdPesquisaGet)
     }
 
-    function handleSubmitUserGet(e){
+    function handleSubmitDescricaoEventosGet(e){
         e.preventDefault();
 
         fetch("http://localhost:8080/api/eventos/buscarDescricao/" + DescricaoPesquisaGet)
@@ -67,7 +67,7 @@ function EventosForm(){
         alert("Eventos pesquisado = " + DescricaoPesquisaGet)
     }
 
-    function handleSubmitUserGet(e){
+    function handleSubmitDataEventoGet(e){
         e.preventDefault();
 
         fetch("http://localhost:8080/api/eventos/buscarPorData/" + DataPesquisaGet)
@@ -129,7 +129,7 @@ function EventosForm(){
         alert("Deletando evento de id = " + IdPesquisaDel)
     }
 
-    function handleSubmitDeleteNome(e){
+    function handleSubmitDeleteDescricao(e){
         e.preventDefault();
 
         fetch("http://localhost:8080/api/eventos/deletarDescricao/" + DescricaoPesquisaDel, {
@@ -176,7 +176,7 @@ function EventosForm(){
         alert("Atualizando evento de id = " + IdEventoPut)
     }
 
-    function handleSubmitPutNome(e){
+    function handleSubmitPutDescricao(e){
         e.preventDefault();
 
         try {
@@ -210,16 +210,16 @@ function EventosForm(){
                 <h1>Eventos do Sistema</h1>
             
                 {/* Pesquisas */}
-                <form className={styles_form.form} id="formularioEventosIdGet" onSubmit={handleSubmitIdGet}>
+                <form className={styles_form.form} id="formularioEventosIdGet" onSubmit={handleSubmitGet}>
                     <Input value={PesquisaGet} handleOnChange={(e) => setPesquisaGet(e.target.value)} type="text" text_btn="PESQUISA GERAL" placeholder="Pesquisa geral" />
                 </form>
-                <form className={styles_form.form} id="formularioEventosNomeGet" onSubmit={handleSubmitNameGet}>
+                <form className={styles_form.form} id="formularioEventosNomeGet" onSubmit={handleSubmitIdGet}>
                     <Input value={IdPesquisaGet} handleOnChange={(e) => setIdPesquisaGet(e.target.value)} type="text" text_btn="PESQUISAR POR ID" name="id" placeholder="Insira o ID do evento a ser pesquisado" />
                 </form> 
-                <form className={styles_form.form} id="formularioEventosDescricaoGet" onSubmit={handleSubmitUserGet}>
+                <form className={styles_form.form} id="formularioEventosDescricaoGet" onSubmit={handleSubmitDescricaoEventosGet}>
                     <Input value={DescricaoPesquisaGet} handleOnChange={(e) => setDescricaoPesquisaGet(e.target.value)} type="text" text_btn="PESQUISAR POR DESCRIÇÃO" name="descricao" placeholder="Insira a DESCRIÇÃO do evento a ser pesquisado"/>
                 </form>
-                <form className={styles_form.form} id="formularioEventosDataGet" onSubmit={handleSubmitUserGet}>
+                <form className={styles_form.form} id="formularioEventosDataGet" onSubmit={handleSubmitDataEventoGet}>
                     <Input value={DataPesquisaGet} handleOnChange={(e) => setDataPesquisaGet(e.target.value)} type="text" text_btn="PESQUISAR POR DATA" name="data" placeholder="Insira a DATA do evento a ser pesquisado"/>
                 </form>
 
@@ -232,7 +232,7 @@ function EventosForm(){
                 <form className={styles_form.form} id="formularioEventosDeletarId" onSubmit={handleSubmitDeleteId}>
                     <Input value={IdPesquisaDel} handleOnChange={(e) => setIdPesquisaDel(e.target.value)} type="text" text_btn="DELETAR POR ID" name="id" placeholder="Insira o ID do evento a ser deletado"/>
                 </form>
-                <form className={styles_form.form} id="formularioEventosDeletarDescricao" onSubmit={handleSubmitDeleteNome}>
+                <form className={styles_form.form} id="formularioEventosDeletarDescricao" onSubmit={handleSubmitDeleteDescricao}>
                     <Input value={DescricaoPesquisaDel} handleOnChange={(e) => setDescricaoPesquisaDel(e.target.value)} type="text" text_btn="DELETAR POR DESCRIÇÃO" name="descricao" placeholder="Insira a DESCRIÇÃO do evento a ser deletado"/>
                 </form>
 
@@ -240,7 +240,7 @@ function EventosForm(){
                 <form className={styles_form.form} id="formularioEventosAtualizarId" onSubmit={handleSubmitPutId}>
                     <Input value={IdEventoPut} handleOnChange={(e) => setIdEventosPut(e.target.value)}  type="text" text_btn="ATUALIZAR POR ID" name="id" placeholder="Insira o ID do evento a ser atualizado"/>
                 </form>
-                <form className={styles_form.form} id="formularioEventosAtualizarDescricao" onSubmit={handleSubmitPutNome}>
+                <form className={styles_form.form} id="formularioEventosAtualizarDescricao" onSubmit={handleSubmitPutDescricao}>
                     <Input value={DescricaoEventoPut} handleOnChange={(e) => setDescricaoPut(e.target.value)}  type="text" text_btn="ATUALIZAR POR DESCRIÇÃO" name="descricao" placeholder="Insira a DESCRIÇÃO do evento a ser atualizado"/>
                 </form>
             </div>
