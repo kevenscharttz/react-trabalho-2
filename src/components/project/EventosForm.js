@@ -211,10 +211,16 @@ function EventosForm(){
             
                 {/* Pesquisas */}
                 <form className={styles_form.form} id="formularioEventosIdGet" onSubmit={handleSubmitIdGet}>
-                    <Input value={PesquisaGet} handleOnChange={(e) => setPesquisaGet(e.target.value)} type="text" text_btn="PESQUISAR POR ID" name="id" placeholder="Insira o ID do evento a ser pesquisado" />
+                    <Input value={PesquisaGet} handleOnChange={(e) => setPesquisaGet(e.target.value)} type="text" text_btn="PESQUISA GERAL" placeholder="Pesquisa geral" />
                 </form>
+                <form className={styles_form.form} id="formularioEventosNomeGet" onSubmit={handleSubmitNameGet}>
+                    <Input value={IdPesquisaGet} handleOnChange={(e) => setIdPesquisaGet(e.target.value)} type="text" text_btn="PESQUISAR POR ID" name="id" placeholder="Insira o ID do evento a ser pesquisado" />
+                </form> 
                 <form className={styles_form.form} id="formularioEventosDescricaoGet" onSubmit={handleSubmitUserGet}>
                     <Input value={DescricaoPesquisaGet} handleOnChange={(e) => setDescricaoPesquisaGet(e.target.value)} type="text" text_btn="PESQUISAR POR DESCRIÇÃO" name="descricao" placeholder="Insira a DESCRIÇÃO do evento a ser pesquisado"/>
+                </form>
+                <form className={styles_form.form} id="formularioEventosDataGet" onSubmit={handleSubmitUserGet}>
+                    <Input value={DataPesquisaGet} handleOnChange={(e) => setDataPesquisaGet(e.target.value)} type="text" text_btn="PESQUISAR POR DATA" name="data" placeholder="Insira a DATA do evento a ser pesquisado"/>
                 </form>
 
                 {/* Inserir */}
