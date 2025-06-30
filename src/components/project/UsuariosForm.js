@@ -3,10 +3,6 @@ import {useState, useEffect} from 'react'
 import styles_form from './UsuariosForm.module.css'
 import Input from  '../form/Input'
 import styles_users from '../pages/Usuarios.module.css'
-<<<<<<< HEAD
-=======
-
->>>>>>> e5ceed470864d269ed03f6278fe257db23e6bf61
 
 function UsuariosForm(){
 
