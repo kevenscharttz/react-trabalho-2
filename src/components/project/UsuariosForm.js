@@ -4,7 +4,6 @@ import styles_form from './UsuariosForm.module.css'
 import Input from  '../form/Input'
 import styles_users from '../pages/Usuarios.module.css'
 
-
 function UsuariosForm(){
 
     const [idPesquisaGet, setIdPesquisaGet] = useState('')
