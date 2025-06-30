@@ -152,7 +152,7 @@ function EventosForm(){
 
         try {
             // Tenta converter o texto do textarea em objeto
-            const usuario = JSON.parse(textoTextArea);
+            const eventos = JSON.parse(textoTextArea);
 
             fetch("http://localhost:8080/api/eventos/atualizarId/" + IdEventoPut, {
                 method: "PUT",
@@ -245,7 +245,7 @@ function EventosForm(){
                 </form>
             </div>
             <textarea
-                placeholder={`{\n   "descricao": "Festa Junina",\n   "data": "2025-06-29",\n   "local": "Salão APAE",\n   "responsavel": "Maria"\n}`}
+                placeholder={`{\n   "description": "Seminário sobre Saúde juka", \n   "comments": "Psicólogos e terapeutas convidados", \n   "date": "2025-07-25 19:00:00"}`}
                 rows="8"
                 cols="100"
                 value={textoTextArea}

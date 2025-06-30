@@ -1,4 +1,4 @@
-// import styles from './Eventos.module.css'
+import styles from './Eventos.module.css'
 import EventosForm from '../project/EventosForm'
 
 function Eventos(){
