@@ -1,7 +1,15 @@
+import styles from './Eventos.module.css'
+import EventosForm from '../project/EventosForm'
+
 function Eventos(){
-    return <h1>Eventos</h1>
+    return (
+        <>
+            <EventosForm btnText="Criar Projeto"/>
+        </>
+
+    )
 
 }
 
 
-export default Eventos
+export default Usuarios
