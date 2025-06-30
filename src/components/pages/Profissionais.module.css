@@ -1,0 +1,21 @@
+.profissionais_container{
+    width:  1500px;
+    padding: 1em;
+    flex-direction: row;
+    display: flex;
+    gap: 2em;
+    justify-content: space-around;
+    
+}
+
+.profissionais_container h1{
+    margin-bottom:  0.3em;
+
+}
+
+
+.profissionais_container textarea{
+    width: 40%;
+}
+
+
