@@ -1,0 +1,21 @@
+.agendamentos_container{
+    width:  1500px;
+    padding: 1em;
+    flex-direction: row;
+    display: flex;
+    gap: 2em;
+    justify-content: space-around;
+    
+}
+
+.agendamentos_container h1{
+    margin-bottom:  0.3em;
+
+}
+
+
+.agendamentos_container textarea{
+    width: 40%;
+}
+
+

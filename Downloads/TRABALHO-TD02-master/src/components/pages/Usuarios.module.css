@@ -1,0 +1,21 @@
+.usuarios_container{
+    width:  1500px;
+    padding: 1em;
+    flex-direction: row;
+    display: flex;
+    gap: 2em;
+    justify-content: space-around;
+    
+}
+
+.usuarios_container h1{
+    margin-bottom:  0.3em;
+
+}
+
+
+.usuarios_container textarea{
+    width: 40%;
+}
+
+
