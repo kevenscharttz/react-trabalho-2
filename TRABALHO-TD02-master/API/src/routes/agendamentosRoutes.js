@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Agendamento } = require('../db/mongo');
 
+// Buscar todos os agendamentos
 router.get('/', async (req, res) => {
   try {
     const docs = await Agendamento.find();
@@ -11,6 +12,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Buscar agendamento por ID
 router.get('/get-por-id/:id', async (req, res) => {
   try {
     const doc = await Agendamento.findById(req.params.id);
@@ -23,22 +25,48 @@ router.get('/get-por-id/:id', async (req, res) => {
   }
 });
 
-router.get('/tipo/:tipoConsulta', (req, res) => {
-  const agendamentosDB = loadAgendamentos();
-  const resultados = agendamentosDB.filter(a =>
-    a.tipoConsulta.toLowerCase() === req.params.tipoConsulta.toLowerCase()
-  );
-
-  if (resultados.length === 0) {
-    return res.status(404).json({
-      error: "Nenhum agendamento encontrado.",
-      details: `Tipo de consulta '${req.params.tipoConsulta}' não encontrado`
-    });
+// Buscar agendamentos por tipo de consulta
+router.get('/tipo/:tipoConsulta', async (req, res) => {
+  try {
+    const resultados = await Agendamento.find({ tipoConsulta: { $regex: new RegExp('^' + req.params.tipoConsulta + '$', 'i') } });
+    if (resultados.length === 0) {
+      return res.status(404).json({
+        error: "Nenhum agendamento encontrado.",
+        details: `Tipo de consulta '${req.params.tipoConsulta}' não encontrado`
+      });
+    }
+    res.json(resultados);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
-
-  res.json(resultados);
 });
 
+// Buscar agendamentos por nomePaciente (descrição)
+router.get('/buscarDescricao/:nomePaciente', async (req, res) => {
+  try {
+    const docs = await Agendamento.find({ nomePaciente: { $regex: req.params.nomePaciente, $options: 'i' } });
+    res.json(docs);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Buscar agendamentos por dataAgendamento (YYYY-MM-DD)
+router.get('/buscarPorData/:dataAgendamento', async (req, res) => {
+  try {
+    const data = new Date(req.params.dataAgendamento);
+    const nextDay = new Date(data);
+    nextDay.setDate(data.getDate() + 1);
+    const docs = await Agendamento.find({
+      dataAgendamento: { $gte: data, $lt: nextDay }
+    });
+    res.json(docs);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Criar novo agendamento
 router.post('/', async (req, res) => {
   const { nomePaciente, cpf, nomeResponsavel, historicoMedico, telefoneContato, tipoConsulta, profissionalSaude, dataAgendamento, horario } = req.body;
   if (!nomePaciente || !cpf || !tipoConsulta || !profissionalSaude || !dataAgendamento || !horario) {
@@ -52,6 +80,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Atualizar agendamento por ID
 router.put('/update-por-id/:id', async (req, res) => {
   try {
     const updated = await Agendamento.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -64,6 +93,20 @@ router.put('/update-por-id/:id', async (req, res) => {
   }
 });
 
+// Atualizar agendamento por nomePaciente (primeiro encontrado)
+router.put('/update-por-nome/:nomePaciente', async (req, res) => {
+  try {
+    const updated = await Agendamento.findOneAndUpdate({ nomePaciente: req.params.nomePaciente }, req.body, { new: true });
+    if (!updated) {
+      return res.status(404).json({ erro: "Nenhum agendamento com esse paciente foi encontrado!" });
+    }
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Deletar agendamento por ID
 router.delete('/delete-por-id/:id', async (req, res) => {
   try {
     const deleted = await Agendamento.findByIdAndDelete(req.params.id);
@@ -76,7 +119,7 @@ router.delete('/delete-por-id/:id', async (req, res) => {
   }
 });
 
-// Deletar agendamento por nome do paciente (primeiro encontrado)
+// Deletar agendamento por nomePaciente (primeiro encontrado)
 router.delete('/delete-por-nome/:nomePaciente', async (req, res) => {
   try {
     const deleted = await Agendamento.findOneAndDelete({ nomePaciente: req.params.nomePaciente });

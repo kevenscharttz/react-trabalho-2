@@ -13,7 +13,7 @@ function Login(){
     const [showSenha, setShowSenha] = useState(false)
 
     function tentarAcesso(){
-        if(senha === 'Botafogo' && nome === 'Diogo'){
+        if(senha === '' && nome === 'Diogo'){
             alert("Acesso permitido")
             setAcessoPermitido(true)
         } else {
