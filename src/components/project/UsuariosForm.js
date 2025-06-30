@@ -2,7 +2,8 @@ import {useState, useEffect} from 'react'
 
 import styles_form from './UsuariosForm.module.css'
 import Input from  '../form/Input'
-import styles_users from './UsuariosForm.module.css'
+import styles_users from '../pages/Usuarios.module.css'
+
 
 function UsuariosForm(){
 
@@ -18,6 +19,22 @@ function UsuariosForm(){
     const [textoTextArea, setTextArea] = useState('')
 
     const url_api_usuarios = "http://localhost:8080/api/usuarios"
+
+    function handleSubmitGetGlobal(e){
+        e.preventDefault();
+
+        fetch(url_api_usuarios)
+            .then(resp => resp.json())
+            .then(data => {
+                console.log(data);
+                setTextArea(JSON.stringify(data,null,2))
+            })
+            .catch(err => {
+                alert("Erro ao buscar estudantes: " + err);
+            });
+
+        alert("Todos os estudantes foram pesquisados")
+    }
 
   
     function handleSubmitIdGet(e){
@@ -241,6 +258,9 @@ function UsuariosForm(){
                 <h1>Usuários do Sistema</h1>
             
                 {/* Pesquisas */}
+                <form className={styles_form.form} id="formularioUsuariosGetGlobal" onSubmit={handleSubmitGetGlobal}>
+                    <Input type="sem_tipo" text_btn="BUSCAR TODOS OS USUARIOS" name="Name"/>
+                </form>
                 <form className={styles_form.form} id="formularioUsuariosIdGet" onSubmit={handleSubmitIdGet}>
                     <Input value={idPesquisaGet} handleOnChange={(e) => setIdPesquisaGet(e.target.value)} type="text" text_btn="PESQUISAR POR ID" name="Name" placeholder="Insira o ID do usuário a ser pesquisado" />
                 </form>
